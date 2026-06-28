@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TimeCraft - Premium Age & Life Calculator</title>
+  <!-- SEO Meta Tags -->
+  <meta name="description" content="Calculate your exact age in years, months, and days, explore interesting life statistics, and learn the step-by-step math behind date calculation.">
+  <meta name="keywords" content="age calculator, exact age, birthday countdown, life stats, step by step date calculation">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <!-- FontAwesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <!-- Custom Styles -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="dark-theme">
+  <!-- Interactive Mesh Background -->
+  <div class="mesh-bg"></div>
+
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <i class="fa-solid fa-hourglass-half logo-icon"></i>
+        <h1>Time<span>Craft</span></h1>
+      </div>
+      <button id="theme-toggle" class="theme-toggle-btn" aria-label="Toggle Theme">
+        <i class="fa-solid fa-sun icon-light"></i>
+        <i class="fa-solid fa-moon icon-dark"></i>
+      </button>
+    </header>
+
+    <main class="main-content">
+      <!-- Left Column: Calculator Card -->
+      <section class="card calculator-card">
+        <div class="card-header">
+          <h2>Discover Your Timeline</h2>
+          <p>Enter your birth date below to calculate your precise age and life statistics.</p>
+        </div>
+
+        <form id="age-form" novalidate>
+          <div class="input-row">
+            <!-- Day Input -->
+            <div class="input-group" id="group-day">
+              <label for="input-day">Day</label>
+              <input type="number" id="input-day" placeholder="DD" min="1" max="31" required>
+              <span class="error-message" id="error-day"></span>
+            </div>
+            <!-- Month Input -->
+            <div class="input-group" id="group-month">
+              <label for="input-month">Month</label>
+              <input type="number" id="input-month" placeholder="MM" min="1" max="12" required>
+              <span class="error-message" id="error-month"></span>
+            </div>
+            <!-- Year Input -->
+            <div class="input-group" id="group-year">
+              <label for="input-year">Year</label>
+              <input type="number" id="input-year" placeholder="YYYY" required>
+              <span class="error-message" id="error-year"></span>
+            </div>
+          </div>
+
+          <div class="action-row">
+            <hr class="divider-line">
+            <button type="submit" class="submit-btn" id="btn-calculate" aria-label="Calculate Age">
+              <i class="fa-solid fa-calculator btn-icon"></i>
+            </button>
+          </div>
+        </form>
+
+        <!-- Primary Results -->
+        <div class="results-container">
+          <div class="result-row">
+            <span class="result-number" id="result-years">- -</span>
+            <span class="result-label">years</span>
+          </div>
+          <div class="result-row">
+            <span class="result-number" id="result-months">- -</span>
+            <span class="result-label">months</span>
+          </div>
+          <div class="result-row">
+            <span class="result-number" id="result-days">- -</span>
+            <span class="result-label">days</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Column: Stats & Walkthrough -->
+      <div class="sidebar-column">
+        <!-- Life Stats Card -->
+        <section class="card stats-card hidden" id="stats-panel">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-chart-simple header-icon"></i> Life Milestones</h3>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-box">
+              <span class="stat-title">Born On</span>
+              <span class="stat-value" id="stat-weekday">- -</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-title">Next Birthday In</span>
+              <span class="stat-value" id="stat-next-birthday">- -</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-title">Total Weeks Lived</span>
+              <span class="stat-value" id="stat-weeks">- -</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-title">Total Days Lived</span>
+              <span class="stat-value" id="stat-days">- -</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-title">Total Hours Lived</span>
+              <span class="stat-value" id="stat-hours">- -</span>
+            </div>
+            <div class="stat-box">
+              <span class="stat-title">Estimated Heartbeats</span>
+              <span class="stat-value" id="stat-heartbeats">- -</span>
+            </div>
+          </div>
+        </section>
+
+        <!-- Step-by-Step Simulator Card -->
+        <section class="card simulator-card">
+          <div class="card-header">
+            <h3><i class="fa-solid fa-graduation-cap header-icon"></i> Step-by-Step Math Guide</h3>
+            <p>See exactly how Javascript calculates date math and validates dates under the hood.</p>
+          </div>
+          
+          <div class="simulator-controls">
+            <div class="tab-buttons">
+              <button class="tab-btn active" data-tab="tab-validation">Validation Flow</button>
+              <button class="tab-btn" data-tab="tab-calculation">Math Borrowing</button>
+            </div>
+          </div>
+
+          <div class="tab-content active" id="tab-validation">
+            <div class="flow-steps">
+              <div class="flow-step" id="step-v1">
+                <div class="step-num">1</div>
+                <div class="step-details">
+                  <h4>Non-Emptiness Check</h4>
+                  <p>Ensures Day, Month, and Year fields are not empty.</p>
+                  <span class="step-status status-pending">Pending</span>
+                </div>
+              </div>
+              <div class="flow-step" id="step-v2">
+                <div class="step-num">2</div>
+                <div class="step-details">
+                  <h4>Range Checks</h4>
+                  <p>Verifies 1 ≤ Day ≤ 31, 1 ≤ Month ≤ 12, and Year is not in the future.</p>
+                  <span class="step-status status-pending">Pending</span>
+                </div>
+              </div>
+              <div class="flow-step" id="step-v3">
+                <div class="step-num">3</div>
+                <div class="step-details">
+                  <h4>Calendar Integrity Check</h4>
+                  <p>Validates if the date combination actually exists (e.g. checking leap years for Feb 29, or months with 30 days).</p>
+                  <span class="step-status status-pending">Pending</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="tab-content" id="tab-calculation">
+            <div class="calc-math-display">
+              <div class="date-comparison">
+                <div class="date-block">
+                  <span class="block-title">Target (Today)</span>
+                  <div class="date-values">
+                    <div><span id="calc-curr-year">YYYY</span><label>Year</label></div>
+                    <div><span id="calc-curr-month">MM</span><label>Month</label></div>
+                    <div><span id="calc-curr-day">DD</span><label>Day</label></div>
+                  </div>
+                </div>
+                <div class="date-operator">-</div>
+                <div class="date-block">
+                  <span class="block-title">Birth Date</span>
+                  <div class="date-values">
+                    <div><span id="calc-birth-year">YYYY</span><label>Year</label></div>
+                    <div><span id="calc-birth-month">MM</span><label>Month</label></div>
+                    <div><span id="calc-birth-day">DD</span><label>Day</label></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="math-steps" id="math-steps-log">
+                <div class="placeholder-log">Run a calculation to see the step-by-step subtraction logic here.</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
+    <!-- Footer Info -->
+    <footer class="app-footer">
+      <p>&copy; 2026 TimeCraft. Crafted for precision and clarity. By Edwell Kakunguwo  <a href="http://www.codealpha.tech" target="_blank" rel="noopener">CodeAlpha Tech</a></p>
+    </footer>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
